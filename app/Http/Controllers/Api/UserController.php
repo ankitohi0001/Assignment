@@ -24,16 +24,15 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 400);
         }
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
+            
         $token = JWTAuth::fromUser($user);
 
-        return response()->json(['token' => $token], 201);
+        return response()->json(['token' => $token], 201);  
     }
 
     // Login User
@@ -54,7 +53,7 @@ class UserController extends Controller
         $user = JWTAuth::user();
 
         $validator = Validator::make($request->all(), [
-            'content' => 'required|string|max:255',
+            'content' => 'required|',
         ]);
 
         if ($validator->fails()) {
@@ -71,7 +70,7 @@ class UserController extends Controller
     // Show all Posts
     public function getPosts()
     {
-        $posts = \App\Models\Post::with('user')->get();
+        $posts = Post::with('user')->get();
 
         return response()->json($posts);
     }
