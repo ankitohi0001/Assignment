@@ -42,7 +42,7 @@
 
                 $('#submitButton').prop('disabled', true).text('Logging in...');
             $.ajax({
-                url: '{{ route('login') }}',
+                url: '{{ route("login") }}',
                 method: 'POST',
                 data: {
                     email: email,
